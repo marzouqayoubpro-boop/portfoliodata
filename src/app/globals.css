@@ -1,26 +1,135 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ========================================================================
+   DESIGN SYSTEM — Portfolio Ayoub Marzouq
+   Tailwind CSS v4 — Configuration via @theme
+   ======================================================================== */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* --- Fonts --- */
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+
+  /* --- Midnight (fond bleu nuit) --- */
+  --color-midnight-950: #020617;
+  --color-midnight-900: #0f172a;
+  --color-midnight-800: #1e293b;
+  --color-midnight-700: #334155;
+
+  /* --- Accent (bleu principal) --- */
+  --color-accent-400: #38bdf8;
+  --color-accent-500: #0ea5e9;
+  --color-accent-600: #0284c7;
+
+  /* --- Glow (effets de lueur) --- */
+  --color-glow-cyan: #22d3ee;
+  --color-glow-purple: #a78bfa;
+  --color-glow-emerald: #34d399;
+
+  /* --- Neon (dégradé électrique) --- */
+  --color-neon-cyan: #00FFFF;
+  --color-neon-magenta: #FF00FF;
+
+  /* --- Neutral (textes) --- */
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-500: #64748b;
+
+  /* --- Animations --- */
+  --animate-pulse-slow: pulse-slow 3s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ========================================================================
+   KEYFRAMES
+   ======================================================================== */
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ========================================================================
+   BASE STYLES
+   ======================================================================== */
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-midnight-950);
+  color: var(--color-neutral-100);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================================================
+   GLASSMORPHISM — Classes utilitaires custom
+   ======================================================================== */
+
+@utility glass {
+  background: oklch(from var(--color-midnight-800) l c h / 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid oklch(from white l c h / 0.1);
+  border-radius: 1rem;
+}
+
+@utility glass-hover {
+  transition: all 0.3s ease;
+  &:hover {
+    background: oklch(from var(--color-midnight-800) l c h / 0.6);
+    border-color: oklch(from var(--color-accent-400) l c h / 0.3);
+  }
+}
+
+@utility glass-card {
+  background: oklch(from var(--color-midnight-800) l c h / 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid oklch(from white l c h / 0.1);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  &:hover {
+    background: oklch(from var(--color-midnight-800) l c h / 0.6);
+    border-color: oklch(from var(--color-accent-400) l c h / 0.3);
+    box-shadow: 0 10px 40px oklch(from var(--color-accent-400) l c h / 0.1);
+  }
+}
+
+/* ========================================================================
+   SCROLLBAR CUSTOM
+   ======================================================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-midnight-950);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-midnight-700);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-500);
+}
+
+/* ========================================================================
+   SELECTION
+   ======================================================================== */
+
+::selection {
+  background-color: oklch(from var(--color-accent-500) l c h / 0.3);
+  color: white;
 }
