@@ -4,15 +4,7 @@ import { motion } from "framer-motion";
 import { Mail, Github, Linkedin, ArrowUpRight } from "lucide-react";
 import { personal } from "@/data/personal";
 import SectionTitle from "@/components/ui/SectionTitle";
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  },
-};
+import { fadeInUp } from "@/lib/animations";
 
 const socialLinks = [
   {

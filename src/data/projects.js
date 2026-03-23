@@ -18,7 +18,7 @@ export const projects = [
         storytelling:
           "Aujourd\u2019hui, le secteur de l\u2019assurance est assis sur une mine d\u2019or : la donn\u00e9e. Pourtant, beaucoup de compagnies peinent encore \u00e0 relier les informations de leurs clients, de leurs sinistres et de leur support client. R\u00e9sultat ? Une vision fragment\u00e9e qui co\u00fbte cher et d\u00e9grade l\u2019exp\u00e9rience utilisateur. C\u2019est de ce constat qu\u2019est n\u00e9 le projet Garantia. L\u2019objectif n\u2019\u00e9tait pas seulement de faire de jolis graphiques, mais de construire une Modern Data Stack compl\u00e8te, de A \u00e0 Z. De la g\u00e9n\u00e9ration de la donn\u00e9e brute jusqu\u2019\u00e0 la restitution d\u2019indicateurs strat\u00e9giques, Garantia est un projet innovant qui prouve qu\u2019avec la bonne architecture, on peut obtenir une vue 360\u00b0 parfaitement claire sur la rentabilit\u00e9, les risques et la satisfaction client.",
       },
-      pipelineImage: "/images/images_garantia/visuel-pipeline.png",
+      pipelineImage: "/images/projects/images_garantia/visuel-pipeline.png",
       stack: [
         { tool: "Python", role: "G\u00e9n\u00e9ration" },
         { tool: "Google BigQuery", role: "Data Warehouse" },
@@ -47,11 +47,11 @@ export const projects = [
           comparison: {
             before: {
               label: "Avant dbt : Donn\u00e9es brutes et silot\u00e9es",
-              image: "/images/images_garantia/schema-initiale.png",
+              image: "/images/projects/images_garantia/schema-initiale.png",
             },
             after: {
               label: "Apr\u00e8s dbt : Mod\u00e8le en \u00e9toile optimis\u00e9",
-              image: "/images/images_garantia/modele-constellation.png",
+              image: "/images/projects/images_garantia/modele-constellation.png",
             },
           },
         },
@@ -59,15 +59,15 @@ export const projects = [
           label: "\u00c9tape 4 \u2014 Transformation & Tests",
           description:
             "Transformation des donn\u00e9es avec dbt : mat\u00e9rialisation des vues et tables, versionning GitHub, ex\u00e9cution de dbt build pour valider la qualit\u00e9 du pipeline.",
-          image: "/images/images_garantia/bigquery-tables.png",
+          image: "/images/projects/images_garantia/bigquery-tables.png",
           imageAlt: "R\u00e9sultat dbt \u2014 tables mat\u00e9rialis\u00e9es dans BigQuery",
           extraImages: [
             {
-              src: "/images/images_garantia/dbt-build-success.png",
+              src: "/images/projects/images_garantia/dbt-build-success.png",
               alt: "dbt build ex\u00e9cut\u00e9 avec succ\u00e8s",
             },
             {
-              src: "/images/images_garantia/dbt-lineage.png",
+              src: "/images/projects/images_garantia/dbt-lineage.png",
               alt: "Lin\u00e9age dbt \u2014 flux de donn\u00e9es",
             },
           ],
@@ -83,7 +83,7 @@ export const projects = [
         "Bien que statiques pour la d\u00e9mo, ce pipeline est pens\u00e9 pour \u00eatre orchestrable (CRON via Apache Airflow) pour une actualisation quotidienne sans intervention humaine.",
       powerbiEmbed: "https://app.powerbi.com/view?r=eyJrIjoiYzVlOWMxZDAtMjBjZC00ZTYzLWFhYmItMDQzOGNmMWFkN2UwIiwidCI6IjgwODc1MGQ0LWE3OGYtNDE1OC1hOTk0LThhMmYxNTkzZTMzZiJ9",
     },
-    logo: "/images/images_garantia/logo-garantia.png",
+    logo: "/images/projects/images_garantia/logo-garantia.png",
     thumbnail: "/images/projects/images_garantia/garantia-thumbnail.png",
   },
   {
@@ -99,9 +99,6 @@ export const projects = [
       "Hausse inexpliqu\u00e9e du taux de rotation du personnel (turnover).",
     tools: ["Python", "Pandas", "Scikit-learn", "XGBoost", "Airflow", "DBT", "BigQuery", "Power BI"],
     detailedContent: null,
-    architecture: null,
-    results: null,
-    thumbnail: null,
   },
   {
     id: 3,

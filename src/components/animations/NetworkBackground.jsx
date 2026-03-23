@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 
 const NODE_COUNT = 45;
 const CONNECTION_DISTANCE = 140;
+const CONNECTION_DISTANCE_SQ = CONNECTION_DISTANCE * CONNECTION_DISTANCE;
 const NODE_SPEED = 0.3;
 
 export default function NetworkBackground() {
@@ -16,8 +17,18 @@ export default function NetworkBackground() {
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
-    let width = canvas.width = canvas.offsetWidth;
-    let height = canvas.height = canvas.offsetHeight;
+    const dpr = window.devicePixelRatio || 1;
+    let width = canvas.offsetWidth;
+    let height = canvas.offsetHeight;
+
+    function applyDpr() {
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.scale(dpr, dpr);
+    }
+    applyDpr();
 
     // Initialize nodes
     nodesRef.current = Array.from({ length: NODE_COUNT }, () => ({
@@ -30,8 +41,9 @@ export default function NetworkBackground() {
     }));
 
     function resize() {
-      width = canvas.width = canvas.offsetWidth;
-      height = canvas.height = canvas.offsetHeight;
+      width = canvas.offsetWidth;
+      height = canvas.offsetHeight;
+      applyDpr();
     }
 
     function update() {
@@ -57,10 +69,10 @@ export default function NetworkBackground() {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x;
           const dy = nodes[i].y - nodes[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const distSq = dx * dx + dy * dy;
 
-          if (dist < CONNECTION_DISTANCE) {
-            const alpha = (1 - dist / CONNECTION_DISTANCE) * 0.15;
+          if (distSq < CONNECTION_DISTANCE_SQ) {
+            const alpha = (1 - Math.sqrt(distSq) / CONNECTION_DISTANCE) * 0.15;
             ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();

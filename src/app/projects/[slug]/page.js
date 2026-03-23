@@ -7,10 +7,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
-  Database,
-  Brain,
-  BarChart3,
-  BookOpen,
   ImageIcon,
   Monitor,
   X,
@@ -18,39 +14,9 @@ import {
   Sparkles,
 } from "lucide-react";
 import { projects } from "@/data/projects";
+import { typeIcons, statusConfig, BookOpen } from "@/data/config";
+import { fadeInUp as fadeIn } from "@/lib/animations";
 
-const typeIcons = {
-  "Data Engineering": Database,
-  "Data Science": Brain,
-  "Intelligence Artificielle": Brain,
-  "Data Analysis": BarChart3,
-};
-
-const statusConfig = {
-  "Terminé": {
-    badge: "border-glow-emerald/30 bg-glow-emerald/10 text-glow-emerald",
-  },
-  "En cours": {
-    badge: "border-amber-400/30 bg-amber-500/10 text-amber-400",
-  },
-};
-
-const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  }),
-};
-
-/* ------------------------------------------------------------------ */
-/*  Image placeholder (when no image is provided)                     */
-/* ------------------------------------------------------------------ */
 function ImagePlaceholder({ label }) {
   return (
     <div className="flex aspect-video w-full items-center justify-center rounded-lg border border-white/[0.06] bg-midnight-900/80">
@@ -62,9 +28,6 @@ function ImagePlaceholder({ label }) {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Project image with glass frame — clickable                        */
-/* ------------------------------------------------------------------ */
 function ProjectImage({ src, alt, onOpen }) {
   if (!src) return <ImagePlaceholder label={alt || "Image à venir"} />;
   return (
@@ -87,9 +50,6 @@ function ProjectImage({ src, alt, onOpen }) {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Lightbox                                                          */
-/* ------------------------------------------------------------------ */
 function Lightbox({ src, alt, onClose }) {
   useEffect(() => {
     const handleKey = (e) => {
@@ -135,9 +95,6 @@ function Lightbox({ src, alt, onClose }) {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Power BI embed placeholder                                        */
-/* ------------------------------------------------------------------ */
 function PowerBIPlaceholder() {
   return (
     <div className="flex aspect-video w-full items-center justify-center rounded-lg border border-accent-400/20 bg-midnight-900/80">
@@ -154,9 +111,6 @@ function PowerBIPlaceholder() {
   );
 }
 
-/* ================================================================== */
-/*  PAGE                                                              */
-/* ================================================================== */
 export default function ProjectPage() {
   const { slug } = useParams();
   const project = projects.find((p) => p.slug === slug);
@@ -213,9 +167,6 @@ export default function ProjectPage() {
           </Link>
         </motion.div>
 
-        {/* ============================================================
-            PROJECT HERO
-            ============================================================ */}
         <motion.header
           custom={1}
           variants={fadeIn}
@@ -271,9 +222,6 @@ export default function ProjectPage() {
           </p>
         </motion.header>
 
-        {/* ============================================================
-            AI APPROACH BANNER
-            ============================================================ */}
         {content?.aiApproach && (
           <motion.div
             custom={2}
@@ -298,9 +246,6 @@ export default function ProjectPage() {
           </motion.div>
         )}
 
-        {/* ============================================================
-            DETAILED CONTENT — New rich structure
-            ============================================================ */}
         {content ? (
           <div className="space-y-12">
             {/* --- Intro / Storytelling --- */}
@@ -503,6 +448,7 @@ export default function ProjectPage() {
                     src={content.powerbiEmbed}
                     className="aspect-video w-full"
                     allowFullScreen
+                    sandbox="allow-same-origin allow-scripts allow-presentation"
                   />
                 </div>
               ) : (
@@ -511,9 +457,6 @@ export default function ProjectPage() {
             </motion.section>
           </div>
         ) : (
-          /* -----------------------------------------------------------
-             LEGACY / FALLBACK for projects without detailedContent
-             ----------------------------------------------------------- */
           <motion.div
             custom={2}
             variants={fadeIn}

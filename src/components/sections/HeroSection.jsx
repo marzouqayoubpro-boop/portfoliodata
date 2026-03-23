@@ -27,6 +27,10 @@ const glowPulse = {
 };
 
 export default function HeroSection() {
+  const nameParts = personal.name.split(" ");
+  const firstName = nameParts[0];
+  const lastName = nameParts.slice(1).join(" ");
+
   return (
     <section
       id="accueil"
@@ -73,16 +77,16 @@ export default function HeroSection() {
           animate="visible"
           className="text-5xl font-extrabold leading-tight tracking-tight text-neutral-100 sm:text-6xl lg:text-7xl"
         >
-          {personal.name.split(" ")[0]}{" "}
+          {firstName}{" "}
           <span className="relative inline-block">
             <span className="relative z-10 bg-gradient-to-r from-cyan-300 via-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">
-              {personal.name.split(" ").slice(1).join(" ")}
+              {lastName}
             </span>
             <span
               aria-hidden="true"
               className="absolute inset-0 bg-gradient-to-r from-cyan-300 via-cyan-400 to-blue-500 bg-clip-text text-transparent blur-xl opacity-70"
             >
-              {personal.name.split(" ").slice(1).join(" ")}
+              {lastName}
             </span>
           </span>
         </motion.h1>

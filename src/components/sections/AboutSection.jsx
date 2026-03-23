@@ -5,19 +5,7 @@ import { motion } from "framer-motion";
 import { Sparkles, Brain } from "lucide-react";
 import { personal } from "@/data/personal";
 import SectionTitle from "@/components/ui/SectionTitle";
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  }),
-};
+import { fadeInUp, EASE } from "@/lib/animations";
 
 export default function AboutSection() {
   return (
@@ -37,7 +25,7 @@ export default function AboutSection() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, ease: EASE }}
             className="flex justify-center lg:justify-start"
           >
             <div className="group relative">
@@ -134,7 +122,7 @@ export default function AboutSection() {
                     transition={{
                       delay: 0.3 + i * 0.06,
                       duration: 0.4,
-                      ease: [0.22, 1, 0.36, 1],
+                      ease: EASE,
                     }}
                     className="rounded-lg border border-white/[0.06] bg-midnight-800/50 px-3.5 py-1.5 text-sm text-neutral-300 transition-colors hover:border-glow-purple/20 hover:text-neutral-100"
                   >
