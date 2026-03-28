@@ -12,7 +12,31 @@ import {
   X,
   ZoomIn,
   Sparkles,
+  Github,
+  TrendingDown,
+  Target,
+  DollarSign,
+  Lightbulb,
 } from "lucide-react";
+
+const impactIcons = { TrendingDown, Target, DollarSign };
+const impactColors = {
+  cyan: {
+    icon: "text-accent-400",
+    bg: "bg-accent-400/10",
+    border: "border-accent-400/20",
+  },
+  purple: {
+    icon: "text-glow-purple",
+    bg: "bg-glow-purple/10",
+    border: "border-glow-purple/20",
+  },
+  emerald: {
+    icon: "text-glow-emerald",
+    bg: "bg-glow-emerald/10",
+    border: "border-glow-emerald/20",
+  },
+};
 import { projects } from "@/data/projects";
 import { typeIcons, statusConfig, BookOpen } from "@/data/config";
 import { fadeInUp as fadeIn } from "@/lib/animations";
@@ -216,6 +240,21 @@ export default function ProjectPage() {
             ))}
           </div>
 
+          {/* GitHub link */}
+          {project.githubUrl && (
+            <div className="mt-6">
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/[0.06] bg-midnight-800/60 px-4 py-2 text-sm font-medium text-neutral-300 transition-colors hover:border-accent-400/30 hover:text-accent-400"
+              >
+                <Github size={15} />
+                Voir le code sur GitHub
+              </a>
+            </div>
+          )}
+
           {/* Summary / Objective */}
           <p className="mt-8 text-base leading-relaxed text-neutral-400">
             {project.summary || project.objective}
@@ -409,6 +448,77 @@ export default function ProjectPage() {
               </div>
             )}
 
+            {/* --- Impact Business --- */}
+            {content.impact && (
+              <motion.section
+                custom={7}
+                variants={fadeIn}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-40px" }}
+                className="space-y-6"
+              >
+                <h2 className="flex items-center gap-2 text-xl font-bold text-neutral-100">
+                  <span className="inline-block h-1 w-5 rounded-full bg-glow-emerald" />
+                  Impact Business &amp; Recommandations Stratégiques
+                </h2>
+
+                {/* 3 cards */}
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {content.impact.cards.map((card) => {
+                    const ImpactIcon = impactIcons[card.icon];
+                    const colors = impactColors[card.color];
+                    return (
+                      <div
+                        key={card.label}
+                        className={`glass rounded-xl border p-5 ${colors.border}`}
+                      >
+                        <div
+                          className={`mb-4 flex h-10 w-10 items-center justify-center rounded-lg ${colors.bg}`}
+                        >
+                          <ImpactIcon size={20} className={colors.icon} />
+                        </div>
+                        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+                          {card.label}
+                        </p>
+                        <p className={`mb-2 text-sm font-bold ${colors.icon}`}>
+                          {card.highlight}
+                        </p>
+                        <p className="text-sm leading-relaxed text-neutral-400">
+                          {card.description}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Recommendation */}
+                <div className="flex items-start gap-4 rounded-xl border border-accent-400/20 bg-accent-400/[0.04] p-5">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-accent-400/20 bg-accent-400/10">
+                    <Lightbulb size={18} className="text-accent-400" />
+                  </div>
+                  <div>
+                    <p className="mb-1 text-sm font-semibold text-accent-400">
+                      Plan d&apos;Action Recommandé
+                    </p>
+                    <p className="text-sm leading-relaxed text-neutral-300">
+                      {content.impact.recommendation}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Confusion matrix / turnover chart */}
+                {(content.impact.confusionImage ||
+                  content.impact.confusionImageAlt) && (
+                  <ProjectImage
+                    src={content.impact.confusionImage}
+                    alt={content.impact.confusionImageAlt}
+                    onOpen={openLightbox}
+                  />
+                )}
+              </motion.section>
+            )}
+
             {/* --- Perspectives --- */}
             {content.perspectives && (
               <motion.section
@@ -430,18 +540,18 @@ export default function ProjectPage() {
             )}
 
             {/* --- Power BI Embed --- */}
-            <motion.section
-              custom={9}
-              variants={fadeIn}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }}
-            >
-              <h2 className="mb-6 flex items-center gap-2 text-xl font-bold text-neutral-100">
-                <span className="inline-block h-1 w-5 rounded-full bg-accent-400" />
-                Démonstration Interactive
-              </h2>
-              {content.powerbiEmbed ? (
+            {content.powerbiEmbed && (
+              <motion.section
+                custom={9}
+                variants={fadeIn}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-40px" }}
+              >
+                <h2 className="mb-6 flex items-center gap-2 text-xl font-bold text-neutral-100">
+                  <span className="inline-block h-1 w-5 rounded-full bg-accent-400" />
+                  Démonstration Interactive
+                </h2>
                 <div className="overflow-hidden rounded-lg border border-white/[0.06]">
                   <iframe
                     title="Power BI Dashboard"
@@ -451,10 +561,8 @@ export default function ProjectPage() {
                     sandbox="allow-same-origin allow-scripts allow-presentation"
                   />
                 </div>
-              ) : (
-                <PowerBIPlaceholder />
-              )}
-            </motion.section>
+              </motion.section>
+            )}
           </div>
         ) : (
           <motion.div

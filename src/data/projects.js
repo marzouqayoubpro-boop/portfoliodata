@@ -97,8 +97,118 @@ export const projects = [
       "Pipeline data de A \u00e0 Z aboutissant \u00e0 un mod\u00e8le ML pr\u00e9dictif pour anticiper les d\u00e9parts des employ\u00e9s (churn prediction RH).",
     problematics:
       "Hausse inexpliqu\u00e9e du taux de rotation du personnel (turnover).",
-    tools: ["Python", "Pandas", "Scikit-learn", "XGBoost", "Airflow", "DBT", "BigQuery", "Power BI"],
-    detailedContent: null,
+    tools: ["Python", "Apache Airflow", "dbt", "Google BigQuery", "XGBoost", "Power BI", "Seaborn / Matplotlib"],
+    githubUrl: "https://github.com/PeoplePulse75015/PeoplePulse",
+    thumbnail: "/images/projects/images_peoplepulse/peoplepulse-overview.png",
+    logo: "/images/projects/images_peoplepulse/logo-peoplepulse.png",
+    detailedContent: {
+      aiApproach:
+        "Pour optimiser le développement de ce pipeline complexe et la calibration du modèle XGBoost, j'ai intégré Gemini Pro à mon workflow. L'IA m'a permis d'affiner mes scripts Python, mes modèles dbt et la sélection des features, démontrant ma capacité à allier expertise Data Science et Intelligence Artificielle pour maximiser la précision prédictive.",
+      intro: {
+        title: "PeoplePulse : De la réaction à la prédiction RH",
+        storytelling:
+          "Le turnover coûte extrêmement cher aux entreprises : recrutement, formation, perte de savoir-faire... Face à une crise d'attrition chez un client, ma mission n'était pas de constater les départs après coup dans un tableau de bord. Il fallait construire une pipeline complète d'analyse et de Machine Learning capable de prédire qui allait partir dans les 6 prochains mois — pour permettre aux RH d'agir en amont, avant que la démission ne soit posée.",
+      },
+      pipelineImage: "/images/projects/images_peoplepulse/pipeline-schema.png",
+      stack: [
+        { tool: "Apache Airflow", role: "Orchestration" },
+        { tool: "Google BigQuery", role: "Data Warehouse" },
+        { tool: "dbt", role: "Transformation" },
+        { tool: "Python / Colab", role: "Data Mining" },
+        { tool: "XGBoost", role: "Machine Learning" },
+        { tool: "Power BI", role: "Reporting RH" },
+        { tool: "Seaborn / Matplotlib", role: "Dataviz exploratoire" },
+      ],
+      steps: [
+        {
+          label: "Étape 1 — Ingénierie & Architecture des Données",
+          description:
+            "Point de départ : consolidation de multiples sources de données (internes et externes). Des DAGs Python ont été créés dans Airflow pour automatiser l'extraction et le flux de données. Les données brutes sont envoyées dans BigQuery puis transformées via dbt. Un travail rigoureux a été mené pour nettoyer les données et surtout éviter le data leakage — écarter les variables « parasites » qui auraient permis au modèle de tricher (ex : une variable indiquant une fin de contrat déjà programmée).",
+          image: "/images/projects/images_peoplepulse/airflow-dag-definition.png",
+          imageAlt: "Définition du DAG Airflow — orchestration du pipeline",
+          extraImages: [
+            {
+              src: "/images/projects/images_peoplepulse/airflow-dag-tasks.png",
+              alt: "Tâches du DAG Airflow",
+            },
+            {
+              src: "/images/projects/images_peoplepulse/airflow-interface.png",
+              alt: "Interface Airflow — exécution réussie",
+            },
+            {
+              src: "/images/projects/images_peoplepulse/drawdb-avant.png",
+              alt: "Modélisation base de données — avant dbt",
+            },
+            {
+              src: "/images/projects/images_peoplepulse/drawdb-apres.png",
+              alt: "Modélisation base de données — après dbt",
+            },
+          ],
+        },
+        {
+          label: "Étape 2 — Data Mining & Recherche de Corrélations",
+          description:
+            "Une fois la donnée propre, elle a été ingérée dans Google Colab. L'objectif : comprendre pourquoi les employés partaient. À l'aide de Seaborn et Matplotlib, des analyses visuelles poussées ont permis d'identifier les corrélations cachées entre l'âge, le salaire, la distance domicile-travail, le niveau de satisfaction et le risque de départ.",
+          image: "/images/projects/images_peoplepulse/heatmap-global.png",
+          imageAlt: "Heatmap — corrélations entre variables RH et risque de départ",
+        },
+        {
+          label: "Étape 3 — Machine Learning (XGBoost)",
+          description:
+            "Un modèle XGBoost a été entraîné sur le jeu de données préparé, après encodage des variables catégorielles et sélection des features les plus pertinentes. Ce modèle calcule une probabilité de départ pour chaque collaborateur actif. Sa fiabilité a été validée par une matrice de confusion.",
+          image: "/images/projects/images_peoplepulse/confusion-matrix.png",
+          imageAlt: "Matrice de Confusion — validation du modèle XGBoost",
+        },
+        {
+          label: "Étape 4 — Résultats Business : Vue 360° & Alertes Proactives",
+          description:
+            "Le pipeline se divise en deux flux : un Dashboard Power BI global pour la direction (taux de rotation historique, motifs de départ) et un Système d'Alerte automatisé. À chaque mise à jour des données, le modèle scanne les profils et notifie les managers RH si un talent clé est identifié comme « à haut risque de départ ». Les RH ne subissent plus les démissions — elles organisent des entretiens de rétention ciblés avant que le préavis ne soit posé.",
+          image: "/images/projects/images_peoplepulse/powerbi-dashboard.png",
+          imageAlt: "Dashboard Power BI — suivi de la santé sociale de l'entreprise",
+          extraImages: [
+            {
+              src: "/images/projects/images_peoplepulse/alerte-xgboost.png",
+              alt: "Système d'alerte XGBoost — notification automatisée aux managers RH",
+            },
+          ],
+        },
+      ],
+      impact: {
+        cards: [
+          {
+            icon: "TrendingDown",
+            color: "cyan",
+            label: "Le Point de Rupture",
+            highlight: "La Restructuration",
+            description:
+              "La Dataviz a révélé un pic de turnover anormal, identifié comme la conséquence directe d'une restructuration interne ayant fortement dégradé la culture d'entreprise et la motivation des équipes.",
+          },
+          {
+            icon: "Target",
+            color: "purple",
+            label: "La Cible",
+            highlight: "Le Cycle sans fin des Juniors",
+            description:
+              "Le modèle a identifié que les profils Juniors étaient les plus exposés. L'entreprise est enfermée dans un cercle vicieux : Recrutement → Formation → Démission prématurée → Nouveau Recrutement.",
+          },
+          {
+            icon: "DollarSign",
+            color: "emerald",
+            label: "Le Coût Financier",
+            highlight: "-15% de productivité par départ",
+            description:
+              "Chaque départ entraîne une perte sèche de 15% de productivité. Les juniors quittant l'entreprise avant d'être opérationnels, le ROI de leur recrutement est systématiquement négatif.",
+          },
+        ],
+        recommendation:
+          "Plutôt que d'investir massivement dans le recrutement pour combler les trous, la donnée prouve qu'il faut réallouer le budget sur la rétention. La recommandation principale apportée à la direction : refondre totalement le processus d'Onboarding des juniors et restaurer la culture managériale pour briser ce cycle de démissions.",
+        confusionImage: null,
+        confusionImageAlt: null,
+      },
+      perspectives:
+        "Ce pipeline est conçu pour être entièrement automatisé via Apache Airflow (CRON). À chaque mise à jour des données RH, le modèle XGBoost se réexécute automatiquement et les alertes sont envoyées aux managers sans intervention humaine. La prochaine étape : déploiement en production avec intégration directe aux outils SIRH de l'entreprise.",
+      powerbiEmbed: null,
+    },
   },
   {
     id: 3,
