@@ -17,6 +17,8 @@ import {
   Target,
   DollarSign,
   Lightbulb,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
 const impactIcons = { TrendingDown, Target, DollarSign };
@@ -141,6 +143,8 @@ export default function ProjectPage() {
   const [lightbox, setLightbox] = useState(null);
   const openLightbox = useCallback((src, alt) => setLightbox({ src, alt }), []);
   const closeLightbox = useCallback(() => setLightbox(null), []);
+  const [expandedSteps, setExpandedSteps] = useState({});
+  const toggleStep = useCallback((i) => setExpandedSteps((prev) => ({ ...prev, [i]: !prev[i] })), []);
 
   if (!project) {
     return (
@@ -418,17 +422,62 @@ export default function ProjectPage() {
                       </div>
                     )}
 
-                    {/* Extra images */}
+                    {/* Extra images with "Voir plus" */}
                     {step.extraImages && step.extraImages.length > 0 && (
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        {step.extraImages.map((img, j) => (
+                      <div className="space-y-3">
+                        {/* First image always visible */}
+                        <div className="grid gap-4 sm:grid-cols-2">
                           <ProjectImage
-                            key={j}
-                            src={img.src}
-                            alt={img.alt}
+                            src={step.extraImages[0].src}
+                            alt={step.extraImages[0].alt}
                             onOpen={openLightbox}
                           />
-                        ))}
+                          {/* Show second image if only 2 total, or if expanded */}
+                          {(step.extraImages.length === 2 || expandedSteps[i]) && step.extraImages[1] && (
+                            <ProjectImage
+                              src={step.extraImages[1].src}
+                              alt={step.extraImages[1].alt}
+                              onOpen={openLightbox}
+                            />
+                          )}
+                        </div>
+
+                        {/* Remaining images when expanded */}
+                        <AnimatePresence>
+                          {expandedSteps[i] && step.extraImages.length > 2 && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="grid gap-4 overflow-hidden sm:grid-cols-2"
+                            >
+                              {step.extraImages.slice(2).map((img, j) => (
+                                <ProjectImage
+                                  key={j}
+                                  src={img.src}
+                                  alt={img.alt}
+                                  onOpen={openLightbox}
+                                />
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
+                        {/* Voir plus / Voir moins button — only if more than 2 images */}
+                        {step.extraImages.length > 2 && (
+                          <button
+                            type="button"
+                            onClick={() => toggleStep(i)}
+                            className="flex items-center gap-1.5 text-sm font-medium text-accent-400 transition-colors hover:text-accent-300"
+                          >
+                            {expandedSteps[i] ? (
+                              <><ChevronUp size={15} /> Voir moins</>
+                            ) : (
+                              <><ChevronDown size={15} /> Voir plus ({step.extraImages.length - 2} images)</>
+                            )}
+                          </button>
+                        )}
                       </div>
                     )}
 
