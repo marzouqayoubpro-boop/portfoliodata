@@ -396,6 +396,28 @@ export default function ProjectPage() {
                       </div>
                     )}
 
+                    {/* Wide image — full width, taller */}
+                    {step.wideImage && (
+                      <div className="mb-4">
+                        <button
+                          type="button"
+                          onClick={() => openLightbox(step.wideImage, step.wideImageAlt)}
+                          className="group relative w-full cursor-zoom-in overflow-hidden rounded-lg border border-white/[0.06] transition-colors hover:border-accent-400/30"
+                        >
+                          <Image
+                            src={step.wideImage}
+                            alt={step.wideImageAlt || ""}
+                            width={1600}
+                            height={700}
+                            className="h-auto max-h-[600px] w-full object-contain"
+                          />
+                          <span className="absolute inset-0 flex items-center justify-center bg-midnight-950/0 transition-colors group-hover:bg-midnight-950/40">
+                            <ZoomIn size={24} className="text-white opacity-0 transition-opacity group-hover:opacity-80" />
+                          </span>
+                        </button>
+                      </div>
+                    )}
+
                     {/* Extra images */}
                     {step.extraImages && step.extraImages.length > 0 && (
                       <div className="grid gap-4 sm:grid-cols-2">

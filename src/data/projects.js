@@ -158,6 +158,8 @@ export const projects = [
             "Un modèle XGBoost a été entraîné sur le jeu de données préparé, après encodage des variables catégorielles et sélection des features les plus pertinentes. Ce modèle calcule une probabilité de départ pour chaque collaborateur actif. Sa fiabilité a été validée par une matrice de confusion.",
           image: "/images/projects/images_peoplepulse/confusion-matrix.png",
           imageAlt: "Matrice de Confusion — validation du modèle XGBoost",
+          wideImage: "/images/projects/images_peoplepulse/alerte-xgboost.png",
+          wideImageAlt: "Système d'alerte XGBoost — notification automatisée aux managers RH",
         },
         {
           label: "Étape 4 — Résultats Business : Vue 360° & Alertes Proactives",
@@ -165,12 +167,6 @@ export const projects = [
             "Le pipeline se divise en deux flux : un Dashboard Power BI global pour la direction (taux de rotation historique, motifs de départ) et un Système d'Alerte automatisé. À chaque mise à jour des données, le modèle scanne les profils et notifie les managers RH si un talent clé est identifié comme « à haut risque de départ ». Les RH ne subissent plus les démissions — elles organisent des entretiens de rétention ciblés avant que le préavis ne soit posé.",
           image: "/images/projects/images_peoplepulse/powerbi-dashboard.png",
           imageAlt: "Dashboard Power BI — suivi de la santé sociale de l'entreprise",
-          extraImages: [
-            {
-              src: "/images/projects/images_peoplepulse/alerte-xgboost.png",
-              alt: "Système d'alerte XGBoost — notification automatisée aux managers RH",
-            },
-          ],
         },
       ],
       impact: {
